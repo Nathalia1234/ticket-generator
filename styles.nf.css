@@ -594,3 +594,9 @@ label {
     opacity: 1; /* opacidade */
   }
 }
+
+/*demonstrar visualmente quando o erro estiver acima do input*/
+/* #name-error-msg {
+  margin-bottom: 0.25rem; /* pequeno respiro quando colocado acima 
+} 
+*/

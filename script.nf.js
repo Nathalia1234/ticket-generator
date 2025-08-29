@@ -37,7 +37,7 @@ let isImageValid = false;
 let isNameValid = false;
 let isEmailValid = false;
 let isGitHubValid = false;
-generateTicketBtn.disabled = true; // botão começa desabilitado
+//generateTicketBtn.disabled = true; // botão começa desabilitado
 let previousObjectURL = null; // guarda a URL temporária do avatar
 
 // ================= FUNÇÕES =================
@@ -96,12 +96,63 @@ function showImage(file) {
   }
 }
 
-// ================= EVENTOS =================
+// ================= VALIDAÇÃO DE ERROS ( PERGUNTA 03 )=================
 
-// Clique no ícone de upload abre seletor de arquivo
-/* customUpload.addEventListener("click", () => {
-  fileInput.click();
-}); */
+function showNameError(message, mode = "below") {
+  // Atualiza mensagem padrão do card de erro
+  nameErrorPar.textContent = message || "Enter your first and last name.";
+
+  // Reset visual padrão
+  nameErrorMsg.classList.add("hide");
+
+  /* ---------------- (A) ERRO ABAIXO DO CAMPO (PADRÃO DA PÁGINA) ---------------- */
+
+  if (mode === "below") {
+    nameErrorMsg.classList.remove("hide");
+    return;
+  }
+
+  /* ---------------- (B) ERRO ACIMA DO CAMPO (reordena DOM dinamicamente) ---------------- */
+
+  if (mode === "above") {
+    // move o bloco de erro para cima do input durante a validação
+    if (nameErrorMsg.nextElementSibling === inputName) {
+      // já está acima
+    } else {
+      inputName.parentElement.insertBefore(nameErrorMsg, inputName);
+    }
+    nameErrorMsg.classList.remove("hide");
+    return;
+  }
+
+  /* ---------------- (C) ERRO EM alert() ---------------- */
+
+  if (mode === "alert") {
+    // ALERTA DO NAVEGADOR (didático para comparativo)
+    alert(message || "Enter your first and last name.");
+    return;
+  }
+
+  /* ---------------- (D) ERRO EM TOAST (TOASTIFY) ----------------*/
+
+  if (mode === "toast") {
+    if (typeof Toastify !== "undefined") {
+      Toastify({
+        text: message || "Enter your first and last name.",
+        duration: 2500,
+        gravity: "top",
+        position: "right",
+        close: true,
+      }).showToast();
+    } else {
+      // fallback se Toastify não estiver carregado
+      alert(message || "Enter your first and last name.");
+    }
+    return;
+  }
+}
+
+// ================= EVENTOS =================
 
 // Permite abrir upload com Enter ou Espaço
 uploadWrapper.addEventListener("keydown", (e) => {
@@ -198,26 +249,62 @@ changeImgBtn.addEventListener("click", () => {
 
 // ================= VALIDAÇÃO DE CAMPOS =================
 
+//
+// PERGUNTA 01
+// "Como altero para validar que a pessoa escreveu apenas o primeiro nome (sem regex)?"
+
+/* inputName.addEventListener("blur", () => {
+  const onlyFirst = inputName.value.trim().replace(/\s+/g, " ");
+  const hasSpaceInside = onlyFirst.includes(" ");
+  if (onlyFirst.length < 2 || hasSpaceInside) {
+    inputName.classList.add("error");
+    isNameValid = false;
+    showNameError("Please type ONLY your first name (no spaces).", "below"); // mude para "above" | "alert" | "toast"
+    toggleSubmitButton();
+    return;
+  }
+
+  // Formata capitalização do primeiro nome
+  const first =
+    onlyFirst.charAt(0).toUpperCase() + onlyFirst.slice(1).toLowerCase();
+  inputName.value = first;
+
+  inputName.classList.remove("error");
+  nameErrorMsg.classList.add("hide");
+  isNameValid = true;
+  toggleSubmitButton();
+
+  // Atualiza ticket
+  document.querySelector(".print-name1").textContent = first;
+  document.querySelector(".print-name2").textContent = "";
+  userName.textContent = first;
+}); */
+
+// PERGUNTA 02
+// Como altero para validar que escreveu nome e sobrenome?
+
+// below = mensagem aparece embaixo do campo
+// above = mensagem aparece acima do campo
+// alert = aparece um alerta do navegador com o texto.
+// toast = aparece uma notificação (toast) no canto superior direito.
+
 // Validação do campo Nome
 inputName.addEventListener("blur", () => {
   const cleanedName = inputName.value.trim().replace(/\s+/g, " ");
   const words = cleanedName.split(" ");
 
   if (words.length !== 2) {
-    // exige dois nomes
-    nameErrorMsg.classList.remove("hide");
     inputName.classList.add("error");
     isNameValid = false;
+    showNameError("Enter your first and last name.", "below"); // escolhe o modo de onde a msg deve aparecer
     toggleSubmitButton();
     return;
   }
   const nameRegex = /^[A-Za-zÀ-ÿ'’\- ]+$/; // aceita letras e alguns caracteres
   if (!nameRegex.test(cleanedName)) {
-    // bloqueia números e símbolos
-    nameErrorMsg.classList.remove("hide");
     inputName.classList.add("error");
-    nameErrorPar.textContent = "Numbers or special characters are not allowed.";
     isNameValid = false;
+    showNameError("Numbers or special characters are not allowed.", "above"); // ou "alert" / "toast"
     toggleSubmitButton();
     return;
   }
@@ -262,6 +349,88 @@ inputEmail.addEventListener("blur", () => {
   // Atualiza ticket
   document.querySelector(".print-email").textContent = cleanedEmail;
 });
+
+// =================  VARIAÇÕES DO @ DO GITHUB =========================
+
+// PERGUNTA 04: Validar que o usuário digitou o "@" do GitHub.
+
+// testando esse bloco quando coloca o usuário SEM @ aparece mensagem em vermelho solicitando o @ do usuário
+// colocando o @ a mensagem desaparece
+
+/* inputGitHub.addEventListener("input", () => {
+  const cleanedGit = inputGitHub.value.replace(/\s+/g, "");
+  if (!cleanedGit || cleanedGit[0] !== "@") {
+    gitHubErrorMsg.classList.remove("hide");
+    inputGitHub.classList.add("error");
+    isGitHubValid = false;
+    toggleSubmitButton();
+    return;
+  }
+  gitHubErrorMsg.classList.add("hide");
+  inputGitHub.classList.remove("error");
+  isGitHubValid = true;
+  toggleSubmitButton();
+
+  userGitHub.textContent = cleanedGit;
+}); */
+
+// PERGUNTA 05: Validar que o usuário NÃO escreveu "@", e ADICIONAR automaticamente.
+
+// testando esse bloco quando coloca o usuário SEM @ e sai do campo,  o @ é adicionado automaticamente;
+// e se digitar @usuario permanece válido também;
+
+/* inputGitHub.addEventListener("blur", () => {
+  let val = inputGitHub.value.trim().replace(/\s+/g, "");
+  if (!val) {
+    gitHubErrorMsg.classList.remove("hide");
+    inputGitHub.classList.add("error");
+    isGitHubValid = false;
+    toggleSubmitButton();
+    return;
+  }
+  if (!val.startsWith("@")) {
+    val = "@" + val; // adiciona automaticamente
+  }
+  inputGitHub.value = val;
+
+  gitHubErrorMsg.classList.add("hide");
+  inputGitHub.classList.remove("error");
+  isGitHubValid = true;
+  toggleSubmitButton();
+
+  userGitHub.textContent = val;
+}); */
+
+// PERGUNTA 06: Independente de escrever "@" ou não, NORMALIZAR para não duplicar.
+
+// testando esse bloco temos 3 casos:
+// 1. Usuário digita "usuario" e sai do campo -> "@" é adicionado automaticamente
+// 2. Usuário digita "@usuario" e sai do campo -> permanece igual
+// 3. Usuário digita "@@" e sai do campo -> vira  @usuário automaticamente
+
+/* function normalizeGit(val) {
+  // remove todos os @ no começo e adiciona UM só
+  return "@" + (val || "").replace(/^\@+/, "").trim();
+}
+inputGitHub.addEventListener("blur", () => {
+  let raw = inputGitHub.value.replace(/\s+/g, "");
+  if (!raw) {
+    gitHubErrorMsg.classList.remove("hide");
+    inputGitHub.classList.add("error");
+    isGitHubValid = false;
+    toggleSubmitButton();
+    return;
+  }
+  const normalized = normalizeGit(raw);
+  inputGitHub.value = normalized;
+
+  gitHubErrorMsg.classList.add("hide");
+  inputGitHub.classList.remove("error");
+  isGitHubValid = true;
+  toggleSubmitButton();
+
+  userGitHub.textContent = normalized;
+}); */
 
 // Validação do campo GitHub
 inputGitHub.addEventListener("input", () => {
