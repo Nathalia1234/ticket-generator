@@ -43,6 +43,25 @@ Ticket:
 ## 📂 Como executar localmente
 
 1. Clone este repositório:
+
    ```bash
    git clone https://github.com/Nathalia1234/ticket-generator
    ```
+
+2. Acesse a pasta do projeto:
+
+cd ticket-generator
+
+3. Abra o arquivo `index.html` no navegador.
+
+---
+
+## 🌐 Deploy
+
+🔗 [Acesse aqui o projeto em produção](https://www.nathaliaohana.dev)
+
+---
+
+## 📄 Licença
+
+Este projeto foi desenvolvido apenas para fins acadêmicos.
