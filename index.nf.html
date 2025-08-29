@@ -1,0 +1,368 @@
+<!-- Define o tipo de documento HTML5 -->
+<!DOCTYPE html>
+<!-- Define o idioma principal da página como inglês -->
+<html lang="en">
+  <head>
+    <!-- Configura a codificação de caracteres para UTF-8 -->
+    <meta charset="UTF-8" />
+    <!-- Ajusta a visualização para dispositivos móveis -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta />
+    <!-- Define o ícone da aba/navegador -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="images/favicon-32x32.png"
+    />
+    <!-- Importa a fonte Inconsolata do Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Importa o arquivo de estilos CSS -->
+    <link rel="stylesheet" href="styles.nf.css" />
+    <!-- Título exibido na aba do navegador -->
+    <title>Frontend Mentor | Conference ticket generator</title>
+  </head>
+
+  <body>
+    <!-- Conteúdo principal da página -->
+    <main>
+      <header>
+        <!-- Logo do site -->
+        <img src="images/logo-full.svg" alt="Logo" />
+      </header>
+      <!-- Seção do formulário de entrada -->
+      <section class="input-form-section">
+        <!-- Título principal -->
+        <h1>Your Journey to Coding Conf <b> 2025 Starts Here!</b></h1>
+        <!-- Subtítulo -->
+        <h2>Secure your spot at next year's biggest coding conference.</h2>
+        <!-- Formulário principal -->
+        <form action="#" method="POST" id="ticket-form">
+          <!-- Contêiner para upload de imagem -->
+          <div id="upload-wrapper">
+            <!-- Rótulo do campo -->
+            <label for="file-upload">Upload Avatar</label>
+
+            <!-- Área clicável para selecionar o arquivo -->
+            <div
+              class="nf-upload-card"
+              tabindex="0"
+              role="button"
+              aria-label="Upload file"
+            >
+              <!-- Ícone que representa upload -->
+              <div class="nf-upload-thumb">
+                <img
+                  src="images/icon-upload.svg"
+                  alt="Upload your nf-avatar"
+                  id="custom-upload"
+                  class="custom-upload"
+                />
+              </div>
+              <!-- Input real de upload (oculto visualmente) -->
+              <input
+                type="file"
+                accept="image/*"
+                id="file-upload"
+                name="file-upload"
+              />
+              <!-- Texto de instrução -->
+              <p>Drag and drop or click to upload</p>
+            </div>
+          </div>
+
+          <!-- Área que exibe o avatar após o upload -->
+          <div id="uploaded-wrapper" class="hide">
+            <!-- Rótulo falso apenas para acessibilidade -->
+            <h2 class="nf-fake-label" aria-hidden="true">Upload Avatar</h2>
+            <!-- Contêiner do avatar carregado -->
+            <div class="nf-upload-card no-hover" aria-label="Uploaded file">
+              <!-- Miniatura da imagem carregada -->
+              <div class="nf-upload-thumb">
+                <!-- Imagem do avatar carregado -->
+                <img
+                  src="images/image-avatar.jpg"
+                  alt="Upload your nf-avatar"
+                  id="avatar-uploaded"
+                  class="custom-upload nf-avatar"
+                />
+              </div>
+              <!-- Botões para gerenciar o upload -->
+              <div class="nf-upload-actions">
+                <!-- Botão para remover imagem -->
+                <button
+                  id="remove-img-btn"
+                  type="button"
+                  aria-label="Remove image"
+                >
+                  Remove image
+                </button>
+                <!-- Botão para trocar imagem -->
+                <button
+                  id="change-img-btn"
+                  type="button"
+                  aria-label="Change image"
+                >
+                  Change image
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Mensagem informativa sobre upload -->
+          <div class="nf-info" id="upload-info-msg">
+            <!-- Ícone ilustrativo -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="none"
+              viewBox="0 0 16 16"
+            >
+              <path
+                stroke="#D1D0D5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M2 8a6 6 0 1 0 12 0A6 6 0 0 0 2 8Z"
+              />
+
+              <path fill="#D1D0D5" d="M8.004 10.462V7.596ZM8 5.57v-.042Z" />
+
+              <path
+                stroke="#D1D0D5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M8.004 10.462V7.596M8 5.569v-.042"
+              />
+            </svg>
+            <!-- Texto de instrução -->
+            <p>Upload your photo (JPG or PNG, max size: 500KB).</p>
+          </div>
+          <!-- Mensagem de erro de upload -->
+          <div
+            class="nf-info error hide"
+            id="upload-error-msg"
+            role="alert"
+            aria-live="assertive"
+          >
+            <!-- Ícone de aviso -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="none"
+              viewBox="0 0 16 16"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M2 8a6 6 0 1 0 12 0A6 6 0 0 0 2 8Z"
+              />
+
+              <path fill="#D1D0D5" d="M8.004 10.462V7.596ZM8 5.57v-.042Z" />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M8.004 10.462V7.596M8 5.569v-.042"
+              />
+            </svg>
+            <!-- Texto de erro padrão -->
+            <p id="error-msg">
+              File too large. Please upload a photo under 500KB.
+            </p>
+          </div>
+
+          <!-- Rótulo do campo de nome -->
+          <label for="name">Full Name</label>
+          <!-- Campo de texto para nome -->
+          <input type="text" id="name" class="nf-input" />
+          <!-- Mensagem de erro para nome inválido -->
+          <div
+            class="nf-info error hide"
+            id="name-error-msg"
+            role="alert"
+            aria-live="assertive"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="none"
+              viewBox="0 0 16 16"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M2 8a6 6 0 1 0 12 0A6 6 0 0 0 2 8Z"
+              />
+
+              <path fill="#D1D0D5" d="M8.004 10.462V7.596ZM8 5.57v-.042Z" />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M8.004 10.462V7.596M8 5.569v-.042"
+              />
+            </svg>
+
+            <p>Enter your first and last name.</p>
+          </div>
+
+          <!-- Rótulo do campo de email -->
+          <label for="email">Email Address</label>
+          <!-- Campo de texto para email -->
+          <input
+            type="email"
+            id="email"
+            class="nf-input"
+            placeholder="example@email.com"
+          />
+
+          <!-- Mensagem de erro para email inválido -->
+          <div
+            class="nf-info error hide"
+            id="email-error-msg"
+            role="alert"
+            aria-live="assertive"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="none"
+              viewBox="0 0 16 16"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M2 8a6 6 0 1 0 12 0A6 6 0 0 0 2 8Z"
+              />
+
+              <path fill="#D1D0D5" d="M8.004 10.462V7.596ZM8 5.57v-.042Z" />
+
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M8.004 10.462V7.596M8 5.569v-.042"
+              />
+            </svg>
+
+            <p>Please enter a valid email address.</p>
+          </div>
+
+          <!-- Rótulo do campo de GitHub -->
+          <label for="github-username">GitHub Username</label>
+          <!-- Campo de texto para username -->
+          <input
+            type="text"
+            id="github-username"
+            class="nf-input"
+            placeholder="@yourusername"
+          />
+          <!-- Mensagem de erro para username inválido -->
+          <div
+            class="nf-info error hide"
+            id="github-error-msg"
+            role="alert"
+            aria-live="assertive"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="none"
+              viewBox="0 0 16 16"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M2 8a6 6 0 1 0 12 0A6 6 0 0 0 2 8Z"
+              />
+              <path fill="#D1D0D5" d="M8.004 10.462V7.596ZM8 5.57v-.042Z" />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M8.004 10.462V7.596M8 5.569v-.042"
+              />
+            </svg>
+            <p>GitHub username must start with the @ symbol.</p>
+          </div>
+          <!-- Botão de submissão do formulário -->
+          <button
+            type="submit"
+            id="generate-ticket-btn"
+            class="nf-cta"
+            aria-label="Generate my ticket"
+          >
+            Generate My Ticket
+          </button>
+        </form>
+      </section>
+
+      <!-- Seção que mostra o ticket final -->
+      <section class="completed-ticket-section hide">
+        <!-- Mensagem de parabéns + nomes do usuário -->
+        <h2>
+          Congrats, <span class="print-name1">Jonatan</span>&nbsp<span
+            class="print-name2"
+            >Kristof</span
+          >! Your ticket is ready.
+        </h2>
+        <!-- Mensagem explicando envio do ticket por email -->
+        <p class="desktop-size">
+          We've emailed your ticket to
+          <span class="print-email">jonatan@email.com</span> and will send
+          updates in the run up to the event.
+        </p>
+        <!-- Estrutura do ticket -->
+        <div class="ticket">
+          <!-- Dados do ticket -->
+          <div class="ticket__data">
+            <!-- Informações da conferência -->
+            <div class="conf-data">
+              <!-- Logo que fica dentro do ticket -->
+              <img src="images/logo-mark.svg" alt="Logo" />
+              <!-- Informações do evento (Título, data e local) -->
+              <div class="conf-info">
+                <h3>Coding Conf</h3>
+                <p>Ago 31, 2025 / Austin, TX</p>
+              </div>
+            </div>
+            <!-- Dados do usuário -->
+            <div class="user-data ticket-reveal">
+              <!-- Avatar do usuário -->
+              <img
+                src="images/image-avatar.jpg"
+                class="ticket-avatar-img"
+                alt="Avatar"
+              />
+              <!-- Informações do usuário (Nome e GitHub) -->
+              <div class="user-info ticket-reveal">
+                <h3>Jonatan Kristof</h3>
+                <div>
+                  <img
+                    src="images/icon-github.svg"
+                    alt=""
+                    class="github-icon"
+                  />
+                  <p>JonatanKristof</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Número do ticket -->
+          <div class="ticket__num">
+            <p>#01609</p>
+          </div>
+        </div>
+        <!-- Botão para voltar ao formulário -->
+        <button id="reset-btn" class="back-to-form-btn" type="button">
+          Return to the Form
+        </button>
+      </section>
+    </main>
+    <!-- Importa o script JavaScript -->
+    <script src="script.nf.js"></script>
+  </body>
+</html>

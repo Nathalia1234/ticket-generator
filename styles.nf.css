@@ -1,0 +1,596 @@
+/* Paleta de cores e variáveis globais */
+:root {
+  --neutral-0: hsl(0, 0%, 100%); /* branco */
+  --neutral-300: hsl(252, 6%, 83%); /* cinza claro */
+  --neutral-500: hsl(245, 15%, 58%); /* cinza médio */
+  --neutral-700: hsl(245, 19%, 35%); /* cinza escuro */
+  --transp-neutral-700: rgba(81, 83, 113, 0.3); /* cinza escuro translúcido */
+  --neutral-900: hsl(248, 70%, 10%); /* preto */
+  --orange-500: hsl(7, 88%, 67%); /* laranja claro */
+  --orange-700: hsl(7, 71%, 60%); /* laranja médio */
+  /* Gradiente usado em textos */
+  --text-gradient: linear-gradient(
+    to right,
+    hsl(7, 86%, 67%),
+    hsl(0, 0%, 100%)
+  );
+  /* Fonte e tipografia */
+  --font-main: "Inconsolata", monospace;
+  --fs-xs: 0.65rem;
+  --fs-s: 0.9rem;
+  --fs-base: 1rem;
+  --fs-m: 1.2rem;
+  --fs-l: 1.45rem;
+  --fs-xl: 1.75rem;
+  --fs-xxl: 2.5rem;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-bold: 700;
+  --fw-extra-bold: 800;
+  /* Espaçamentos padrão */
+  --spacing-xxs: 0.25rem;
+  --spacing-xs: 0.5rem;
+  --spacing-s: 0.9rem;
+  --spacing-m: 1.25rem;
+  --spacing-l: 1.5rem;
+  --spacing-xl: 2.2rem;
+  --spacing-xxl: 2.8rem;
+  --spacing-xxxl: 3rem;
+  /* Bordas */
+  --border-radius-label: 0.5rem;
+  --border-radius-ticket: 0.2rem;
+}
+/* Classe  para esconder elementos */
+.hide {
+  display: none !important;
+}
+/* Evita efeito hover em elementos com essa classe */
+.no-hover:hover {
+  background: inherit !important;
+}
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 20px; /* base para uso de rem */
+}
+
+/* ==================== MOBILE FIRST ==================== */
+body {
+  font-family: var(--font-main);
+  font-size: var(--fs-base);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  color: var(--neutral-300);
+  padding: var(--spacing-l) var(--spacing-s);
+  /* imagens de fundo */
+  background-image: url(images/pattern-squiggly-line-top.svg),
+    url(images/pattern-squiggly-line-bottom-mobile-tablet.svg),
+    url(images/pattern-lines.svg), url(images/background-mobile.png);
+  background-size: 30%, 70%, 250%, cover; /* tamanho da imagem de fundo */
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat; /* repetição da imagem de fundo */
+  background-position: right var(--spacing-s), left bottom, center top,
+    /* posição da imagem de fundo */ center center;
+  position: relative; /* tipo de posicionamento */
+}
+
+section {
+  display: flex; /* modelo de caixa (block/flex/etc) */
+  flex-direction: column; /* direção dos itens flex */
+  align-items: center; /* alinhamento transversal em flex */
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: var(--spacing-xs);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  text-align: center;
+  font-size: clamp(var(--fs-l), 5vw, var(--fs-xxl));
+  color: var(--neutral-0);
+  padding: var(--spacing-m) 0;
+}
+
+h2 {
+  text-align: center;
+  font-size: var(--fs-base);
+  font-weight: var(--fw-medium);
+  padding-bottom: var(--spacing-l);
+}
+
+/* ==================== SEÇÃO DE FORMULÁRIO DE ENTRADA ==================== */
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* largura */
+  max-width: 420px; /* largura máxima da “caixa” do formulário */
+  margin: 0 auto; /* centraliza horizontalmente */
+}
+
+label {
+  display: block;
+  margin: var(--spacing-s) 0 var(--spacing-xs); /* espaço acima e abaixo */
+  color: var(--neutral-0); /* cor do texto */
+  font-weight: var(--fw-regular); /* deixa mais marcado */
+  letter-spacing: 0.01em; /* espaçamento entre letras */
+}
+
+/* Esconde o input real de arquivo */
+#file-upload {
+  position: absolute;
+  width: 0.1rem; /* largura */
+  height: 0.1rem; /* altura */
+  opacity: 0; /* opacidade */
+}
+/* Área de upload */
+.nf-upload-card {
+  position: relative;
+  background-color: var(
+    --transp-neutral-700
+  ); /* fundo acinzentado translúcido */
+  border: 1px dashed var(--neutral-300); /* borda mais definida */
+  border-radius: 12px; /* cantos arredondados */
+  color: var(--neutral-300); /* cor do texto */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px; /* preenchimento interno */
+  cursor: pointer; /* estilo do cursor */
+  width: 100%;
+  overflow: hidden;
+}
+
+.nf-upload-card p {
+  font-size: var(--fs-s);
+}
+/* Estilos botões, inputs e upload */
+.nf-upload-card,
+.nf-input,
+.nf-cta {
+  border-radius: var(--border-radius-label);
+  font-family: var(--font-main);
+  font-size: var(--fs-base);
+}
+
+.nf-upload-thumb {
+  /* Miniatura (ícone/avatar) */
+  width: 3rem; /* largura */
+  height: 3rem; /* altura */
+  border: 0.2px solid var(--neutral-300); /* borda mais definida */
+  border-radius: 0.5rem; /* cantos arredondados */
+  display: flex; /* exibição flexível */
+  align-items: center; /* alinhamento vertical */
+  justify-content: center; /* centralizar conteúdo */
+  overflow: hidden; /* ocultar conteúdo excedente */
+  margin: var(--spacing-s); /* espaço ao redor */
+}
+
+.custom-upload {
+  width: 65%; /* largura */
+}
+
+.nf-fake-label {
+  text-align: left; /* alinhamento do texto */
+  margin-bottom: -1rem; /* espaço abaixo */
+}
+/* Avatar enviado */
+.nf-avatar {
+  width: 110%; /* largura */
+  height: 110%; /* altura */
+  object-fit: cover; /* ajuste de objeto */
+  display: block; /* exibição em bloco */
+}
+/* Área de botões (remover/trocar imagem) */
+.nf-upload-actions {
+  display: flex; /* exibição flexível */
+  gap: var(--spacing-xs); /* espaço entre os botões */
+  margin-bottom: var(--spacing-xs); /* espaço abaixo */
+}
+
+.nf-upload-actions button {
+  background: var(--neutral-700); /* cor de fundo */
+  color: var(--neutral-300); /* cor do texto */
+  border: none; /* sem borda */
+  font-family: var(--font-main); /* família da fonte */
+  font-size: var(--fs-xs); /* tamanho da fonte */
+  padding: var(--spacing-xxs) var(--spacing-xs); /* preenchimento interno */
+  border-radius: var(--border-radius-ticket); /* cantos arredondados */
+  cursor: pointer; /* estilo do cursor */
+  margin: 0; /* margem */
+}
+
+.nf-upload-actions input {
+  width: 0.01rem; /* largura */
+  height: 0.01rem; /* altura */
+  opacity: 0; /* opacidade */
+}
+
+.nf-upload-actions button:hover,
+.nf-upload-actions label:hover {
+  text-decoration: underline; /* estilo ao passar o mouse */
+}
+/* Mensagens de ajuda/erro */
+.nf-info {
+  display: flex; /* exibição flexível */
+  align-items: center; /* alinhamento vertical */
+  gap: 0.3rem; /* espaço entre os itens */
+  font-size: var(--fs-xs); /* tamanho da fonte */
+  color: var(--neutral-300); /* cor do texto */
+  padding: var(--spacing-xs) 0; /* preenchimento interno */
+}
+/* Campos de texto */
+.nf-input {
+  width: 100%; /* largura */
+  background-color: var(--transp-neutral-700); /* cor de fundo */
+  color: var(--neutral-0); /* cor do texto */
+  border: 0.5px solid var(--neutral-300); /* cor da borda */
+  padding: var(--spacing-s); /* preenchimento interno */
+  margin-bottom: var(--spacing-s); /* espaço abaixo */
+  cursor: pointer; /* estilo do cursor */
+}
+
+.nf-input:hover,
+.nf-upload-card:hover {
+  background-color: var(--neutral-700); /* cor de fundo */
+}
+
+.nf-input:focus,
+.nf-upload-card:focus {
+  border-color: var(--neutral-300); /* cor da borda */
+}
+
+.nf-input::placeholder {
+  color: var(--neutral-300); /* cor do texto */
+  font-family: var(--font-main); /* família da fonte */
+  font-size: var(--fs-base); /* tamanho da fonte */
+}
+/* Botão principal (CTA) */
+.nf-cta {
+  background: var(--orange-500); /* cor de fundo */
+  color: var(--neutral-900); /* cor do texto */
+  border: none; /* sem borda */
+  padding: var(--spacing-xs); /* preenchimento interno */
+  font-family: var(--font-main); /* família da fonte */
+  font-size: var(--fs-m); /* tamanho da fonte */
+  font-weight: var(--fw-extra-bold); /* peso da fonte */
+  letter-spacing: -0.07rem; /* espaçamento entre letras */
+  cursor: pointer; /* estilo do cursor */
+}
+
+#orange-btn:hover {
+  background: var(--orange-700); /* cor de fundo ao passar o mouse */
+}
+
+/* ==================== SEÇÃO DE ENTRADA RESPONSIVA ==================== */
+@media screen and (min-width: 48em) {
+  body {
+    background-size: 30%, 70%, 100%, cover; /* tamanho da imagem de fundo */
+  }
+  form {
+    width: 50%; /* largura máxima */
+  }
+}
+
+@media screen and (min-width: 64em) {
+  body {
+    background-image: url(images/pattern-squiggly-line-top.svg),
+      /* imagens de fundo */
+        url(images/pattern-squiggly-line-bottom-desktop.svg),
+      url(images/pattern-lines.svg), url(images/background-desktop.png);
+    background-size: 30%, 60% 200%, 100%, cover; /* tamanho da imagem de fundo */
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat; /* repetição da imagem de fundo */
+    background-position: right var(--spacing-s), -5% 25%, center top,
+      /* posição da imagem de fundo */ center center;
+  }
+  h1 {
+    width: 70%; /* largura máxima */
+  }
+  form {
+    width: 50%; /* largura máxima */
+  }
+}
+
+/* ==================== SEÇÃO DE TICKET CONCLUÍDA ==================== */
+.completed-ticket-section {
+  width: 100%; /* largura máxima */
+  display: flex; /* exibição flexível */
+  flex-direction: column; /* direção da flexão */
+  align-items: center; /* alinhamento vertical */
+}
+
+.completed-ticket-section h2 {
+  font-size: clamp(var(--fs-l), 5vw, var(--fs-xxl)); /* tamanho da fonte */
+  text-align: center; /* alinhamento do texto */
+  padding: clamp(var(--spacing-m), 5vw, var(--spacing-xxl)) 0; /* preenchimento interno */
+  color: var(--neutral-0); /* branco */
+}
+/* efeito gradiente no nome */
+.completed-ticket-section h2 span {
+  background: linear-gradient(
+    to right,
+    var(--orange-500),
+    var(--neutral-0)
+  ); /* cor/gradiente de fundo */
+  background-clip: text; /* limite de pintura do background */
+  -webkit-background-clip: text; /* compatibilidade WebKit */
+  -webkit-text-fill-color: transparent; /* cor do texto (WebKit) */
+  display: inline-block; /* exibição em bloco inline */
+}
+
+.completed-ticket-section p {
+  font-size: clamp(var(--fs-s), 5vw, var(--fs-m)); /* tamanho da fonte */
+  text-align: center; /* alinhamento do texto */
+}
+
+.completed-ticket-section p span {
+  color: var(--orange-500); /* cor do texto */
+}
+/* Estrutura do ticket */
+.ticket {
+  background-image: url(images/pattern-ticket.svg); /* imagem de fundo */
+  background-repeat: no-repeat; /* repetição da imagem de fundo */
+  background-position: top left; /* posição da imagem de fundo */
+  background-size: 100% 100%; /* tamanho da imagem de fundo */
+  min-width: 17rem; /* largura mínima */
+  min-height: 8rem; /* altura mínima */
+  max-width: 100%; /* largura máxima */
+  margin: var(--spacing-xl) 0; /* margem */
+  padding-top: clamp(
+    var(--spacing-xs),
+    5vw,
+    var(--spacing-m)
+  ); /* preenchimento interno */
+  padding-bottom: clamp(
+    var(--spacing-xs),
+    5vw,
+    var(--spacing-m)
+  ); /* preenchimento interno */
+  padding-left: clamp(
+    var(--spacing-xs),
+    5vw,
+    var(--spacing-m)
+  ); /* preenchimento interno */
+  display: flex; /* exibição flexível */
+  align-items: center; /* alinhamento vertical */
+  justify-content: space-between; /* distribuição do espaço entre os itens */
+  overflow: hidden; /* ocultar conteúdo que transborda */
+}
+
+.ticket__data {
+  display: flex; /* exibição flexível */
+  flex-direction: column; /* direção da flexão */
+  justify-content: space-between; /* alinhamento do conteúdo */
+  gap: var(--spacing-xl); /* distância entre os elementos */
+}
+
+.conf-data,
+.user-data {
+  display: flex; /* exibição flexível */
+  align-items: flex-start; /* alinhamento do conteúdo */
+  justify-content: flex-start; /* alinhamento do conteúdo */
+}
+
+.conf-info h3 {
+  font-size: clamp(var(--fs-m), 5vw, var(--fs-xl)); /* tamanho da fonte */
+  color: var(--neutral-0); /* branco */
+}
+
+.conf-data img {
+  width: clamp(1.5rem, 5vw, 2rem); /* largura da imagem */
+  height: clamp(1.5rem, 5vw, 2rem); /* altura da imagem */
+  margin-right: 0.5rem; /* distância da borda direita */
+  padding-top: 0.2rem; /* distância da borda superior */
+}
+
+.user-data img {
+  width: clamp(2rem, 5vw, 4rem); /* largura do avatar */
+  height: clamp(2rem, 5vw, 4rem); /* altura do avatar */
+  margin-right: 0.5rem; /* distância da borda direita */
+  border-radius: 60%; /* arrendondar as bordas do avatar */
+}
+
+.conf-info p,
+.user-info > div p {
+  font-size: var(--fs-xs); /* tamanho da fonte */
+}
+
+.user-info > h3 {
+  font-size: clamp(var(--fs-s), 5vw, var(--fs-l)); /* tamanho da fonte */
+}
+
+.user-info > div {
+  display: flex; /* exibição flexível */
+  align-items: center; /* alinhamento vertical */
+  margin-top: -0.5rem; /* distância da parte superior */
+}
+
+.user-info > div img {
+  width: clamp(1rem, 5vw, 1.5rem); /* largura da imagem */
+}
+
+/* === Ajuste do número do ticket (posição + cor) === */
+.ticket__num {
+  position: relative; /* permite deslocar sem quebrar o layout */
+  right: 12px; /* puxa o número para dentro do ticket */
+  transform: rotate(90deg); /* mantém a orientação vertical */
+  color: var(--neutral-500); /* cinza mais acinzentado e discreto */
+  opacity: 0.9; /* leve transparência (opcional) */
+  letter-spacing: 1px; /* mais legibilidade */
+}
+.ticket__num p {
+  margin: 0;
+} /* remove qualquer margem do <p> interno */
+
+.back-to-form-btn {
+  margin-top: 1.5rem; /* distância da parte superior */
+  padding: 0.9rem 1.5rem; /* preenchimento interno */
+  background: var(--orange-500); /* cor laranja já usada no projeto */
+  color: var(--neutral-900); /* texto escuro pra contraste */
+  border: none; /* remove a borda */
+  border-radius: 8px; /* bordas arredondadas */
+  font-family: var(--font-main);
+  font-size: var(--fs-m);
+  font-weight: var(--fw-extra-bold);
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.back-to-form-btn:hover {
+  background: var(--orange-700);
+  transform: translateY(-2px);
+}
+
+/* ==================== SEÇÃO DE INGRESSO RESPONSIVA ==================== */
+@media screen and (min-width: 48em) {
+  .completed-ticket-section {
+    max-width: 80%; /* largura máxima da seção em tablet */
+  }
+
+  .ticket {
+    min-width: 26rem; /* largura mínima do ticket */
+    min-height: 12rem; /* altura mínima do ticket */
+    margin-top: 5rem; /* distância da parte superior */
+  }
+
+  .ticket__data {
+    gap: var(--spacing-xl); /* distância entre os elementos */
+  }
+
+  .user-data,
+  .conf-data {
+    padding-top: var(--spacing-s); /* distância da parte superior */
+  }
+
+  .user-data img {
+    width: 3.5rem; /* largura do avatar */
+    height: 3.5rem; /* altura do avatar */
+  }
+
+  .conf-info p,
+  .user-info > div p {
+    font-size: var(--fs-base); /* tamanho da fonte */
+  }
+
+  .conf-info p {
+    margin-top: var(--spacing-xs); /* distância da parte superior */
+  }
+}
+
+@media screen and (min-width: 64em) {
+  .completed-ticket-section {
+    max-width: 55%; /* largura máxima da seção em desktop */
+  }
+
+  .desktop-size {
+    width: 80%; /* largura da seção em desktop */
+  }
+
+  .completed-ticket-section h2 {
+    font-weight: var(--fw-extra-bold); /* peso da fonte */
+  }
+
+  .ticket {
+    min-width: 26rem; /* largura mínima do ticket */
+    min-height: 12rem; /* altura mínima do ticket */
+    margin-top: 5rem; /* distância da parte superior */
+  }
+
+  .ticket__data {
+    gap: var(--spacing-xl); /* distância entre os elementos */
+  }
+
+  .user-data,
+  .conf-data {
+    padding-top: var(--spacing-s); /* distância da parte superior */
+  }
+
+  .conf-info p,
+  .user-info > div p {
+    font-size: var(--fs-base); /* tamanho da fonte */
+  }
+
+  .conf-info p {
+    margin-top: var(--spacing-xs); /* distância da parte superior */
+    font-size: 0.7rem; /* tamanho da fonte */
+  }
+}
+
+/* ==================== ATRIBUTOS ==================== */
+.attribution {
+  position: absolute; /* posição absoluta */
+  bottom: var(--spacing-xs); /* distância da parte inferior */
+  left: var(--spacing-xs); /* distância da esquerda */
+  font-size: 0.6rem; /* tamanho da fonte */
+  text-align: center; /* centraliza o texto */
+  margin-top: var(--spacing-xxxl); /* distância da parte superior */
+}
+.attribution a {
+  color: var(--orange-500); /* cor do link */
+  cursor: pointer; /* estilo do cursor */
+}
+
+/* ==================== ERRO  ==================== */
+
+.error {
+  color: var(--orange-500); /* cor do texto */
+}
+
+.error svg {
+  stroke: var(--orange-500); /* cor do ícone */
+}
+
+.nf-input.error {
+  border-color: var(--orange-500); /* cor da borda */
+  margin-bottom: 0rem; /* remove margem inferior */
+}
+
+/* ==================== ANIMAÇÕES ==================== */
+#upload-wrapper.dragover {
+  border: 2px dashed var(--neutral-500); /* borda cinza */
+  background-color: var(--neutral-500); /* fundo cinza */
+  border-radius: var(--border-radius-label); /* borda arredondada */
+  cursor: copy; /* estilo do cursor */
+}
+
+.ticket-reveal > * {
+  opacity: 0; /* opacidade */
+  animation: typeLine 0.5s ease-out forwards; /* animação aplicada */
+}
+
+.ticket-reveal:nth-of-type(1) {
+  /*animation-delay: 0.8s;*/
+  animation-delay: 0s; /* atraso da animação */
+}
+.ticket-reveal:nth-of-type(2) {
+  /*animation-delay: 1.2s;*/
+  animation-delay: 0s; /* atraso da animação */
+}
+
+@keyframes typeLine {
+  from {
+    transform: translateY(0.5rem); /* transformação do elemento */
+    opacity: 0; /* opacidade */
+  }
+  to {
+    transform: translateY(0); /* transformação do elemento */
+    opacity: 1; /* opacidade */
+  }
+}
