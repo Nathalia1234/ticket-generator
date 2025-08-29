@@ -28,15 +28,15 @@ Este projeto é um gerador de tickets para conferências, desenvolvido como part
 
 Formulário:
 
-![alt text](image.png)
+![alt text](/design/Form_Inicial.png)
 
 Formulário Preenchido:
 
-![alt text](image-1.png)
+![alt text](/design/Form_Preenchido.png)
 
 Ticket:
 
-![alt text](image-2.png)
+![alt text](/design/Ticket.png)
 
 ---
 
