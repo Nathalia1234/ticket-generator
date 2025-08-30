@@ -105,6 +105,7 @@ function showImage(file) {
   }
 }
 
+// ================ PERGUNTA 03 ==================================
 // ================= VALIDAÇÃO DE ERROS ( PERGUNTA 03 )=================
 
 function showNameError(message, mode = "below") {
@@ -258,17 +259,19 @@ changeImgBtn.addEventListener("click", () => {
 // ================= VALIDAÇÃO DE CAMPOS =================
 
 //
-// PERGUNTA 01
+//  ================= PERGUNTA 01 =================
 // "Como altero para validar que a pessoa escreveu apenas o primeiro nome (sem regex)?"
 
-/* inputName.addEventListener("blur", () => {  // dispara ao sair do campo 
+/* inputName.addEventListener("blur", () => {
+  // dispara ao sair do campo
   const onlyFirst = inputName.value.trim().replace(/\s+/g, " "); // limpa espaços extras
   const hasSpaceInside = onlyFirst.includes(" "); // detecta se há espaço (ou seja, 2 palavras)
-  if (onlyFirst.length < 2 || hasSpaceInside) { // regras: mínimo 2 letras e sem espaços
+  if (onlyFirst.length < 2 || hasSpaceInside) {
+    // regras: mínimo 2 letras e sem espaços
     inputName.classList.add("error"); // pinta o input de erro
     isNameValid = false; // marca inválido para bloquear o botão
     // chama a função de erro e aqui eu posso trocar a posição da mensagem de erro (em cima, em baixo)
-    showNameError("Please type ONLY your first name (no spaces).", "below"); // mude para "above" | "alert" | "toast" 
+    showNameError("Please type ONLY your first name (no spaces).", "below"); // posso mudar  para "above" | "alert" | "toast"
     toggleSubmitButton(); // reavalia o botão de submit
     return; // interrompe
   }
@@ -279,10 +282,10 @@ changeImgBtn.addEventListener("click", () => {
     onlyFirst.charAt(0).toUpperCase() + onlyFirst.slice(1).toLowerCase();
   inputName.value = first; // escreve de volta no input
 
-  inputName.classList.remove("error");  // remove visual de erro
-  nameErrorMsg.classList.add("hide");   // esconde mensagem de erro
-  isNameValid = true;  // marca válido
-  toggleSubmitButton();  // reavalia o botão
+  inputName.classList.remove("error"); // remove visual de erro
+  nameErrorMsg.classList.add("hide"); // esconde mensagem de erro
+  isNameValid = true; // marca válido
+  toggleSubmitButton(); // reavalia o botão
 
   // Atualiza ticket
   document.querySelector(".print-name1").textContent = first; // atualiza nome no ticket (primeira parte)
@@ -290,7 +293,7 @@ changeImgBtn.addEventListener("click", () => {
   userName.textContent = first; // atualiza também o título do ticket
 }); */
 
-// PERGUNTA 02
+// ================= PERGUNTA 02 =================
 // Como altero para validar que escreveu nome e sobrenome?
 
 // below = mensagem aparece embaixo do campo
@@ -308,7 +311,7 @@ inputName.addEventListener("blur", () => {
     // precisa ter exatamente 2 palavras
     inputName.classList.add("error"); // visual de erro
     isNameValid = false; // invalida
-    showNameError("Enter your first and last name.", "below"); // escolhe o modo de onde a msg deve aparecer
+    showNameError("Enter your first and last name.", "toast"); // escolhe o modo de onde a msg deve aparecer
     toggleSubmitButton(); // reavalia botão
     return;
   }
@@ -318,7 +321,7 @@ inputName.addEventListener("blur", () => {
     inputName.classList.add("error"); // visual de erro
     isNameValid = false; // invalida
     // mensagem específica (podemos também determinar onde essa mensagem pode aparecer)
-    showNameError("Numbers or special characters are not allowed.", "above");
+    showNameError("Numbers or special characters are not allowed.", "toast");
     toggleSubmitButton(); // reavalia botão
     return;
   }
@@ -342,7 +345,7 @@ inputName.addEventListener("blur", () => {
   userName.textContent = inputName.value; // título do ticket
 });
 
-/* === PERGUNTA 07 — NOME + DOIS SOBRENOMES (3 palavras) === */
+/* =================  PERGUNTA 07 — NOME + DOIS SOBRENOMES (3 palavras) =================  */
 
 //   Demonstra “como tornar a validação mais complexa”: exige exatamente 3 palavras.
 //   Dispara ao sair do campo
@@ -452,14 +455,16 @@ inputEmail.addEventListener("blur", () => {
 
 // =================  VARIAÇÕES DO @ DO GITHUB =========================
 
-// PERGUNTA 04: Validar que o usuário digitou o "@" do GitHub.
+// ================= PERGUNTA 04: Validar que o usuário digitou o "@" do GitHub. =================
 
 // testando esse bloco quando coloca o usuário SEM @ aparece mensagem em vermelho solicitando o @ do usuário
 // colocando o @ a mensagem desaparece
 
-/* inputGitHub.addEventListener("input", () => { // valida enquanto digita
+/* inputGitHub.addEventListener("input", () => {
+  // valida enquanto digita
   const cleanedGit = inputGitHub.value.replace(/\s+/g, ""); // remove espaços
-  if (!cleanedGit || cleanedGit[0] !== "@") { // precisa começar com "@"
+  if (!cleanedGit || cleanedGit[0] !== "@") {
+    // precisa começar com "@"
     gitHubErrorMsg.classList.remove("hide"); // mostra mensagem
     inputGitHub.classList.add("error"); // borda de erro
     isGitHubValid = false; // invalida
@@ -467,28 +472,31 @@ inputEmail.addEventListener("blur", () => {
     return;
   }
   gitHubErrorMsg.classList.add("hide"); // esconde mensagem
-  inputGitHub.classList.remove("error");  // limpa borda
+  inputGitHub.classList.remove("error"); // limpa borda
   isGitHubValid = true; // marca válido
   toggleSubmitButton(); // reavalia botão
 
-  userGitHub.textContent = cleanedGit;  // atualiza no ticket
+  userGitHub.textContent = cleanedGit; // atualiza no ticket
 }); */
 
-// PERGUNTA 05: Validar que o usuário NÃO escreveu "@", e ADICIONAR automaticamente.
+// ================= PERGUNTA 05: Validar que o usuário NÃO escreveu "@", e ADICIONAR automaticamente. =================
 
 // testando esse bloco quando coloca o usuário SEM @ e sai do campo,  o @ é adicionado automaticamente;
 // e se digitar @usuario permanece válido também;
 
-/* inputGitHub.addEventListener("blur", () => { // valida ao sair do campo
+/* inputGitHub.addEventListener("blur", () => {
+  // valida ao sair do campo
   let val = inputGitHub.value.trim().replace(/\s+/g, ""); // normaliza
-  if (!val) { // se vazio
+  if (!val) {
+    // se vazio
     gitHubErrorMsg.classList.remove("hide"); // mostra erro
     inputGitHub.classList.add("error"); // borda de erro
     isGitHubValid = false; // invalida
     toggleSubmitButton(); // reavalia botão
     return;
   }
-  if (!val.startsWith("@")) { // se não começa com "@"
+  if (!val.startsWith("@")) {
+    // se não começa com "@"
     val = "@" + val; // adiciona automaticamente
   }
   inputGitHub.value = val; // escreve no input já corrigido
@@ -501,23 +509,26 @@ inputEmail.addEventListener("blur", () => {
   userGitHub.textContent = val; // atualiza ticket
 }); */
 
-// PERGUNTA 06: Independente de escrever "@" ou não, NORMALIZAR para não duplicar.
+//  ================= PERGUNTA 06: Independente de escrever "@" ou não, NORMALIZAR para não duplicar =================
 
 // testando esse bloco temos 3 casos:
 // 1. Usuário digita "usuario" e sai do campo -> "@" é adicionado automaticamente
 // 2. Usuário digita "@usuario" e sai do campo -> permanece igual
 // 3. Usuário digita "@@" e sai do campo -> vira  @usuário automaticamente
 
-/* function normalizeGit(val) { // garante 1 único "@"
+/* function normalizeGit(val) {
+  // garante 1 único "@"
   return "@" + (val || "").replace(/^\@+/, "").trim(); // remove @ do começo e adiciona apenas um
 }
-inputGitHub.addEventListener("blur", () => { // valida ao sair do campo
+inputGitHub.addEventListener("blur", () => {
+  // valida ao sair do campo
   let raw = inputGitHub.value.replace(/\s+/g, ""); // remove espaços
-  if (!raw) { // vazio → erro
+  if (!raw) {
+    // vazio → erro
     gitHubErrorMsg.classList.remove("hide"); // mostra mensagem
     inputGitHub.classList.add("error"); // borda de erro
     isGitHubValid = false; // invalida
-    toggleSubmitButton();  // reavalia
+    toggleSubmitButton(); // reavalia
     return;
   }
   const normalized = normalizeGit(raw); // normaliza: "@usuario"
@@ -525,8 +536,8 @@ inputGitHub.addEventListener("blur", () => { // valida ao sair do campo
 
   gitHubErrorMsg.classList.add("hide"); // esconde mensagem
   inputGitHub.classList.remove("error"); // limpa borda
-  isGitHubValid = true;  // marca válido
-  toggleSubmitButton();  // reavalia
+  isGitHubValid = true; // marca válido
+  toggleSubmitButton(); // reavalia
 
   userGitHub.textContent = normalized; // atualiza no ticket
 }); */
