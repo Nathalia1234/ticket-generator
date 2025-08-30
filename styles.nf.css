@@ -458,6 +458,26 @@ label {
   transform: translateY(-2px);
 }
 
+/* Estado desabilitado do CTA */
+#generate-ticket-btn:disabled,
+#generate-ticket-btn[disabled] {
+  opacity: 0.45; /* botão “apagado” */
+  cursor: not-allowed; /* cursor de bloqueado */
+  filter: saturate(0.5); /* tira a saturação do gradiente */
+  box-shadow: none; /* remove brilho/sombra de ativo */
+  transform: none !important; /* previne “efeito de clique” */
+}
+
+/* Se houver estilos :hover/:active no botão, neutraliza quando desabilitado */
+#generate-ticket-btn:disabled:hover,
+#generate-ticket-btn:disabled:active,
+#generate-ticket-btn:disabled:focus {
+  opacity: 0.45;
+  filter: saturate(0.5);
+  box-shadow: none;
+  outline: none;
+}
+
 /* ==================== SEÇÃO DE INGRESSO RESPONSIVA ==================== */
 @media screen and (min-width: 48em) {
   .completed-ticket-section {
