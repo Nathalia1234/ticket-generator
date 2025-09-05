@@ -58,7 +58,7 @@ cd ticket-generator
 
 ## 🌐 Deploy
 
-🔗 [Acesse aqui o projeto em produção]([https://www.nathaliaohana.dev])
+🔗 [Acesse aqui o projeto em produção](https://www.nathaliaohana.dev)
 
 ---
 
