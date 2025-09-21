@@ -1,6 +1,6 @@
 # 🎟️ Ticket Generator - Coding Conf
 
-Este projeto é um gerador de tickets para conferências, desenvolvido como parte da disciplina **Desenvolvimento Full Stack** no **SENAI CIMATEC**.
+Este projeto é um gerador de tickets para conferências.
 
 ---
 
