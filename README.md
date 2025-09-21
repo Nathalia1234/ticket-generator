@@ -60,8 +60,3 @@ cd ticket-generator
 
 🔗 [Acesse aqui o projeto em produção](https://ticket-generator.nathaliaohana.dev/)
 
----
-
-## 📄 Licença
-
-Este projeto foi desenvolvido apenas para fins acadêmicos.
